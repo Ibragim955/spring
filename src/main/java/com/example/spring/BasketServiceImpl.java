@@ -1,5 +1,6 @@
 package com.example.spring;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
@@ -8,19 +9,23 @@ import java.util.List;
 
 @Service
 @Scope("Request")
-public class BasketServiceImpl extends BasketService {
+public class BasketServiceImpl implements BasketService {
 
-        List<Basket> ids = new ArrayList<>();
+    private final ShoppingCart shoppingCart;
 
-        @Override
-        public void add(List<Integer> lists) {
-
-        }
-
-        @Override
-        public List<Integer> get() {
-            ids.stream().map(e -> e.getIds());
-            return null;
-        }
+    public BasketServiceImpl(ShoppingCart shoppingCart) {
+        this.shoppingCart = shoppingCart;
     }
 
+    @Override
+    public void add(Integer... itemID) {
+        for (Integer id : itemID) {
+            shoppingCart.getCardItems().add(id);
+        }
+    }
+    @Override
+    public List<Integer> get() throws JsonProcessingException {
+        return List.copyOf(shoppingCart.getCardItems());
+    }
+
+}

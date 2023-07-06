@@ -1,12 +1,14 @@
 package com.example.spring;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import java.util.List;
 
-public class BasketService {
-    public void add(List<Integer> id) {
+public interface BasketService {
+    public static void add(List<Integer> id) {
     }
 
-    public List<Integer> get() {
-        return null;
-    }
+    void add(Integer... itemID);
+
+    List<Integer> get() throws JsonProcessingException;
 }
