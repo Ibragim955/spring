@@ -17,15 +17,16 @@ public class BasketServiceImpl implements BasketService {
         this.shoppingCart = shoppingCart;
     }
 
+    private final List<Integer> cart = new ArrayList<>();
+
     @Override
-    public void add(Integer... itemID) {
-        for (Integer id : itemID) {
-            shoppingCart.getCardItems().add(id);
-        }
+    public void add(List<Integer> ids) {
+        cart.addAll(ids);
     }
+
     @Override
     public List<Integer> get() throws JsonProcessingException {
-        return List.copyOf(shoppingCart.getCardItems());
+        return cart;
     }
 
 }

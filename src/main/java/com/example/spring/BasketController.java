@@ -8,24 +8,26 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/store/order")
 public class BasketController {
 
 
-        private final BasketService basketService;
+    private final BasketService basketService;
 
-        public BasketController(BasketService basketService) {
-            this.basketService = basketService;
-        }
+    public BasketController(BasketService basketService) {
+        this.basketService = basketService;
+    }
 
     @GetMapping("/add")
-    public void add(@RequestParam("id") Integer... itemID) {
-        BasketService.add(List.of(itemID));
+    public void add(@RequestParam("ids") List<Integer> ids) {
+        basketService.add(ids);
     }
 
     @GetMapping("/get")
-    public void get() throws JsonProcessingException {
+    public List<Integer> get() throws JsonProcessingException {
+        return basketService.get();
     }
 }
+
 
 
